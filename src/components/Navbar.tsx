@@ -1,7 +1,9 @@
-import { RoutePaths } from "@/models";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { SignedIn, UserButton } from "@clerk/nextjs";
+
+import { RoutePaths } from "@/models";
 import MobileNav from "./MobileNav";
 
 const Navbar = () => {
@@ -21,8 +23,9 @@ const Navbar = () => {
       </Link>
 
       <div className="flex-between gap-5">
-        {/* Clerk - User Management */}
-
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
         <MobileNav />
       </div>
     </nav>

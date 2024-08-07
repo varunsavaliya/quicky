@@ -4,4 +4,5 @@ export const RoutePaths = {
   PREVIOUS: "/previous",
   RECORDINGS: "/recordings",
   PERSONAL_ROOM: "/personal-room",
+  MEETING: "/meeting",
 };
