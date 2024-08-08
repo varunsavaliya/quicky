@@ -23,7 +23,6 @@ const MeetingModal = ({
 }: IMeetingModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger>Open</DialogTrigger>
       <DialogContent
         aria-describedby={undefined}
         className="flex sm:w-full max-w-[520px] flex-col gap-6 rounded-2xl border-none bg-dark-1 px-6 py-9 text-white w-fit"

@@ -1,5 +1,6 @@
 import {
   DeviceSettings,
+  StreamCall,
   useCall,
   VideoPreview,
 } from "@stream-io/video-react-sdk";
@@ -17,11 +18,11 @@ const MeetingSetup = ({
 
   useEffect(() => {
     if (isMicCamToggledOn) {
-      call?.camera.disable();
-      call?.microphone.disable();
+      call?.camera?.disable();
+      call?.microphone?.disable();
     } else {
-      call?.camera.enable();
-      call?.camera.enable();
+      call?.camera?.enable();
+      call?.camera?.enable();
     }
   }, [isMicCamToggledOn, call?.camera, call?.microphone]);
 

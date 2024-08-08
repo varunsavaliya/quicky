@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 
 import "@stream-io/video-react-sdk/dist/css/styles.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 import "./globals.css";
 import { RoutePaths } from "@/models";
@@ -12,6 +13,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Quicky",
   description: "Manage your meetings",
+  icons: {
+    icon: "/icons/logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -22,8 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ClerkProvider
-        afterSignInUrl={RoutePaths.HOME}
-        afterSignUpUrl={RoutePaths.HOME}
+        signInFallbackRedirectUrl={RoutePaths.HOME}
+        signUpFallbackRedirectUrl={RoutePaths.HOME}
+        afterSignOutUrl='/sign-in'
         appearance={{
           layout: {
             socialButtonsVariant: "iconButton",
