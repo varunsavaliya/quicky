@@ -28,10 +28,6 @@ export const useGetCalls = () => {
             ],
           },
         });
-        calls.forEach(async (call) => {
-          const members = await call.queryMembers();
-          members.members.forEach(member => member.)
-        });
         setCalls(calls);
       } catch (error) {
         console.log(error);
