@@ -8,24 +8,23 @@ import {
   SpeakerLayout,
   useCallStateHooks,
 } from "@stream-io/video-react-sdk";
+import { LayoutList, Users } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CallLayoutType } from "@/models";
+import { CallLayoutType, RoutePaths } from "@/models";
 import { cn } from "@/lib/utils";
-import { LayoutList, Users } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 import EndCallButton from "./EndCallButton";
 import Loader from "./Loader";
 
 const MeetingRoom = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const isPersonalRoom = !!searchParams.get("personal");
   const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
   const [showParticipants, setShowParticipants] = useState<boolean>(false);
@@ -61,7 +60,7 @@ const MeetingRoom = () => {
       </div>
 
       <div className="fixed bottom-0 flex flex-wrap w-full items-center justify-center gap-5 sm:pb-0 pb-4">
-        <CallControls />
+        <CallControls onLeave={() => router.push(RoutePaths.HOME)} />
 
         <DropdownMenu>
           <div className="flex items-center">

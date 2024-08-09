@@ -28,7 +28,10 @@ export default function RootLayout({
       <ClerkProvider
         signInFallbackRedirectUrl={RoutePaths.HOME}
         signUpFallbackRedirectUrl={RoutePaths.HOME}
-        afterSignOutUrl='/sign-in'
+        afterSignInUrl={RoutePaths.HOME}
+        afterSignUpUrl={RoutePaths.HOME}
+        afterSignOutUrl="/sign-in"
+        redirectUrl={RoutePaths.HOME}
         appearance={{
           layout: {
             socialButtonsVariant: "iconButton",

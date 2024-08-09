@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { AvatarImages, IMeetingCardProps } from "@/models";
-import Link from "next/link";
 
 const MeetingCard = ({
   icon,

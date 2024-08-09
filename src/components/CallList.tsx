@@ -1,18 +1,21 @@
 "use client";
 
-import { useGetCalls } from "@/hooks/useGetCalls";
-import { ICallListProps, RoutePaths } from "@/models";
 import { Call, CallRecording } from "@stream-io/video-react-sdk";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { useGetCalls } from "@/hooks/useGetCalls";
+import { ICallListProps, RoutePaths } from "@/models";
 import Loader from "./Loader";
 import MeetingCard from "./MeetingCard";
+import { useToast } from "./ui/use-toast";
 
 const CallList = ({ type }: ICallListProps) => {
   const { endedCalls, upcomingCalls, callRecordings, isLoading } =
     useGetCalls();
   const [recordings, setRecordings] = useState<CallRecording[]>([]);
   const router = useRouter();
+  const { toast } = useToast();
 
   const getCalls = () => {
     switch (type) {
@@ -53,6 +56,26 @@ const CallList = ({ type }: ICallListProps) => {
     }
   };
 
+  useEffect(() => {
+    const setCallRecordings = async () => {
+      try {
+        const callData = await Promise.all(
+          callRecordings.map((meeting) => meeting.queryRecordings())
+        );
+
+        const recordings = callData
+          .filter((call) => call.recordings.length)
+          .flatMap((call) => call.recordings);
+
+        setRecordings(recordings);
+      } catch (error) {
+        toast({ title: "try again later" });
+      }
+    };
+
+    if (type === "recordings") setCallRecordings();
+  }, [type, callRecordings]);
+
   const calls = getCalls();
   const noCallsMessage = getNoCallsMessage();
 
@@ -66,7 +89,7 @@ const CallList = ({ type }: ICallListProps) => {
             key={index}
             icon={getIcon()}
             date={
-              (meeting as Call).state.startsAt?.toLocaleString() ||
+              (meeting as Call).state?.startsAt?.toLocaleString() ||
               (meeting as CallRecording).start_time?.toLocaleString()
             }
             handleClick={() =>
@@ -84,7 +107,8 @@ const CallList = ({ type }: ICallListProps) => {
                   }`
             }
             title={
-              (meeting as Call).state.custom.description.substring(0, 26) ||
+              (meeting as Call).state?.custom?.description?.substring(0, 26) ||
+              (meeting as CallRecording)?.filename?.substring(0, 20) ||
               "No Description"
             }
             isPreviousMeeting={type === "ended"}

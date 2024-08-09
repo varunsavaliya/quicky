@@ -1,9 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import Image from "next/image";
 
 import { IMeetingModalProps } from "@/models";
@@ -40,7 +35,10 @@ const MeetingModal = ({
             </div>
           )}
           <DialogTitle
-            className={cn("text-xl text-nowrap sm:text-3xl font-bold leading-[42px]", className)}
+            className={cn(
+              "text-xl text-nowrap sm:text-3xl font-bold leading-[42px]",
+              className
+            )}
           >
             {title}
           </DialogTitle>
@@ -57,7 +55,8 @@ const MeetingModal = ({
                 height={13}
                 className="w-auto h-auto"
               />
-            )} &nbsp;
+            )}{" "}
+            &nbsp;
             {buttonText || "Schedule Meeting"}
           </Button>
         </div>

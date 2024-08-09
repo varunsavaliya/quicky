@@ -10,7 +10,7 @@ import HomeCard from "./HomeCard";
 import { RoutePaths } from "@/models";
 import MeetingModal from "./MeetingModal";
 import { useToast } from "./ui/use-toast";
-// import { getRandomCallId } from "@/actions/call-id.actions";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
 
 const MeetingTypeList = () => {
@@ -53,7 +53,6 @@ const MeetingTypeList = () => {
       }
       toast({ title: "Meeting created" });
     } catch (error) {
-      console.log(error);
       toast({ title: "Failed to create meeting" });
     }
   };
@@ -152,6 +151,23 @@ const MeetingTypeList = () => {
         buttonText="Start Meeting"
         handleClick={createMeeting}
       />
+
+      <MeetingModal
+        isOpen={meetingState === "isJoiningMeeting"}
+        onClose={() => setMeetingState(undefined)}
+        title="Type The Link Here"
+        className="text-center"
+        buttonText="Join Meeting"
+        handleClick={() => router.push(callValues.link)}
+      >
+        <Input
+          placeholder="Meeting link"
+          className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+          onChange={(e) =>
+            setCallValues({ ...callValues, link: e.target.value })
+          }
+        />
+      </MeetingModal>
     </section>
   );
 };

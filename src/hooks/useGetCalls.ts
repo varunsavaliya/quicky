@@ -1,3 +1,4 @@
+import { useToast } from "@/components/ui/use-toast";
 import { useUser } from "@clerk/nextjs";
 import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useEffect, useState } from "react";
@@ -7,6 +8,7 @@ export const useGetCalls = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const client = useStreamVideoClient();
   const user = useUser();
+  const { toast } = useToast();
 
   useEffect(() => {
     const loadCalls = async () => {
@@ -30,7 +32,7 @@ export const useGetCalls = () => {
         });
         setCalls(calls);
       } catch (error) {
-        console.log(error);
+        toast({ title: "Something went wrong!!" });
       } finally {
         setIsLoading(false);
       }
